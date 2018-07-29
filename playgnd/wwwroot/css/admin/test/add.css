@@ -1,0 +1,90 @@
+﻿body {
+    width: 800px;   
+    display:compact;
+    margin: 0 auto;    
+    border: 2px solid #ccc;
+    border-top: none;
+    border-bottom: none;
+    background: #fff;
+    padding: 20px;
+    font-family: Trebuchet, Arial,Helvetica,sans-serif;
+    font-size: 16px;
+    color: #353535;
+    line-height: 1.5em;
+}
+.options-left{
+    width:45%;
+    float:left;
+}
+.options-right{
+    width:45%;
+    float:right;
+}
+.options-input-text{
+    width:200px;
+    float:right;
+}
+.options-input-num {
+    width: 50px;
+    float: right;
+}
+.question-input{
+    width:100%;
+}
+.answers-count{
+    width:50px;
+}
+.answer-input{
+    width:80%;
+}
+
+.button {
+    float: left;
+    width: auto;
+    padding: 5px 15px;
+    color: #ffffff;
+    background-color: darkcyan;
+    border: 1px solid #fff;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    text-decoration: none;
+}
+.button:hover {
+    background-color: darkslategray;
+
+}
+h1, h2, h3, h4, h5, h6 {
+    font-weight: bold;
+}
+
+h1 {
+    font-size: 26px;
+    margin: 0 0 20px;
+    color: #0C4569;
+}
+
+h2 {
+    font-size: 22px;
+    margin: 15px 0;
+}
+
+h3 {
+    font-size: 18px;
+    margin: 15px 0 10px;
+}
+
+h4 {
+    font-size: 16px;
+    margin: 10px 0;
+}
+
+h5 {
+    font-size: 14px;
+    margin: 10px 0 5px;
+}
+
+h6 {
+    font-size: 12px;
+    margin: 5px 0;
+}

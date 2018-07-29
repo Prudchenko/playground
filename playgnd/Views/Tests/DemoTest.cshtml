@@ -1,0 +1,58 @@
+﻿@model List<string>
+@using System.Net;
+@using System.Text;
+
+@{ 
+    ViewData["Title"] = "DemoTest";
+}
+<html>
+<head>
+    <meta content="text/html; charset=utf-8" http-equiv="content-type">
+    <title>Тестирование</title>
+    <link href="~/css/test/reset.css" media="screen" rel="stylesheet" type="text/css">
+    <link href="~/css/test/slickQuiz.css" media="screen" rel="stylesheet" type="text/css">
+    <link href="~/css/test/master.css" media="screen" rel="stylesheet" type="text/css">
+</head>
+<body id="slickQuiz">
+    <h2>Тестирование</h2>
+    <h1 id ="quizName" class="quizName"><!-- where the quiz name goes --></h1>
+    <div class="quizArea">
+        <div class="quizHeader">
+            <!-- where the quiz main copy goes -->
+            <a class="button startQuiz" href="#">Начать тест!</a>
+        </div>
+        <!-- where the quiz gets built -->
+    </div>
+    <div class="quizResults">
+        <h3 class="quizScore">Правильных ответов: <span><!-- where the quiz score goes --></span></h3>
+        <h3 class="quizLevel"><strong></strong> <span><!-- where the quiz ranking level goes --></span></h3>
+        <div class="quizResultsCopy">
+            <!-- where the quiz result copy goes -->
+        </div>
+    </div>
+    <script src="~/js/jquery.js"></script>
+    <script src="~/js/testing/slickQuiz.js"></script>
+    <script>
+        function quizShow(resp) {
+            $('#slickQuiz').slickQuiz({
+                  json: JSON.parse(resp),
+                  randomSortQuestions: @Model[7],
+                  randomSortAnswers: @Model[6],
+                  preventUnanswered: @Model[8],
+                  numberOfQuestions: @Model[3],
+                  disableRanking: true
+                });
+        }
+        var jsonQ;
+        var x = new XMLHttpRequest();
+        x.open("GET", "get?id="+@Model[0], true);
+        x.responseType = "text";
+        x.onload = function () {
+            jsonQ = x.responseText;
+            quizShow(jsonQ);
+         }
+        x.send(null);        
+    </script>
+</body>
+</html>
+

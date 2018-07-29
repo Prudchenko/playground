@@ -1,0 +1,95 @@
+﻿@model string
+@{
+    ViewData["Title"] = "TestControl";
+
+}
+<link href="~/css/admin/test/add.css" rel="stylesheet" />
+<meta content="text/html; charset=utf-8" http-equiv="content-type">
+<h2>Добавление теста</h2>
+<div style="width:100%; height:200px;">
+    <div>
+        <div class="options-left">
+            Курс:
+            <input class="options-input-text" id="subj" type="text" value="@Model" disabled/>
+            <br />
+            <label>Название</label><input class="options-input-text" id="name" type="text" /><br />
+            <label>Описание</label><input class="options-input-text" id="main" type="text" /><br />
+            <label>Текст в конце теста</label><input class="options-input-text" id="results" type="text" /><br />
+            <label>Кол-во вопросов в базе</label><input class="options-input-num" id="totalQue" type="number" value="0" /><br />
+            <label>Кол-во вопросов в тесте</label><input class="options-input-num" id="testQue" type="number" value="0" /><br />
+
+            <input class="button" type="button" value="Ввод вопросов" onclick="questionsAction()" />
+            <input class="button" type="button" value="Добавить в базу!" onclick="generatejson()" />
+        </div>
+        <div class="options-right">
+            <label>Показывать резутьтат после каждого ответа</label><input id="opt1" type="checkbox" /><br />
+            <label>Перемешивать вопросы</label><input id="opt2" type="checkbox" /><br />
+            <label>Перемешивать варианты ответа</label><input id="opt3" type="checkbox" /><br />
+            <label>Запретить неотвеченные вопросы</label><input id="opt4" type="checkbox" /><br />
+        </div>
+    </div>
+</div>
+<div>
+        <div id="questions">
+        </div>
+    </div>
+<script src="~/js/admin/testfrontend.js"></script>
+<script type="text/javascript">
+    function generatejson() {
+        json = ' \
+        { "info": { \
+        "name":    "'+ document.getElementById('name').value + '", \
+        "main":    "<p>'+ document.getElementById('main').value + '</p>", \
+        "results": "<p>'+ document.getElementById('results').value + '</p>", \
+        "level1":  "", \
+        "level2":  "", \
+        "level3":  "", \
+        "level4":  "", \
+        "level5":  ""  \
+        }, \
+        "questions": [ \
+        ';
+        var numQ = document.getElementById('totalQue').value;
+        var numAns = "";
+        for (var i = 0; i < numQ; i++) {
+            numAns = document.getElementById('a' + i).value;
+            json = json + ' \
+            { \
+             "q": "'+ document.getElementById('q' + i).value + '", \
+            "a": [ \
+            ' ;
+            for (var j = 0; j < numAns - 1; j++) {
+                json = json + ' \
+                {"option": "'+ document.getElementById('' + i + 'option' + j).value + '",      "correct": ' + document.getElementById('' + i + 'valid' + j).checked + '}, \
+                ';
+            }
+            var ji = numAns - 1;
+            json = json + ' \
+             {"option": "'+ document.getElementById('' + i + 'option' + ji).value + '",      "correct": ' + document.getElementById('' + i + 'valid' + ji).checked + '} \
+            ],\
+            "correct": "<p><span>Ответ верный</span></p>", \
+            "incorrect": "<p><span>Ответ неверный</span></p>" \
+            }, \
+            ';
+        }
+        json = json + ' \
+                ] \
+        };  \
+        ';       
+        var subject, name, questionsInTest, questionsAll, resultOfQuestion, mixAnswers, mixQuestions, notAnsweredForbidden;
+        subject = document.getElementById('subj').value;
+        name = document.getElementById('name').value;
+        questionsInTest = document.getElementById('testQue').value;
+        questionsAll = document.getElementById('totalQue').value;
+        resultOfQuestion = document.getElementById('opt1').checked;
+        mixAnswers = document.getElementById('opt3').checked;
+        mixQuestions = document.getElementById('opt2').checked;
+        notAnsweredForbidden = document.getElementById('opt4').checked;
+        var xhr = new XMLHttpRequest();
+        var params = 'subject=' + encodeURIComponent(subject) + '&name=' + encodeURIComponent(name) + '&questionsInTest=' + encodeURIComponent(questionsInTest) + '&questionsAll=' + encodeURIComponent(questionsAll) + '&resultOfQuestion=' + encodeURIComponent(resultOfQuestion) + '&mixAnswers=' + encodeURIComponent(mixAnswers) + '&mixQuestions=' + encodeURIComponent(mixQuestions) + '&notAnsweredForbidden=' + encodeURIComponent(notAnsweredForbidden) + '&json=' + encodeURIComponent(json);
+        xhr.open("POST", '/admin/addtest', true);
+        xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xhr.send(params);
+      
+    }
+</script>

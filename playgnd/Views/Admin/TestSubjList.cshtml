@@ -1,0 +1,25 @@
+﻿@model List<string>
+@{
+    ViewData["Title"] = "TestSubjList";
+}
+
+<h2>Выбор курса</h2>
+ <table class="subjects">
+                @foreach (string d in Model)
+                {
+                <tr class="subj">
+                    <td>
+                        <div class="subj-name">
+                           <input type="button" value="@d" onclick="getSubj(this)"/>
+                        </div>
+                    </td>
+                </tr>
+                }
+  </table>
+<script>
+    function getSubj(button) {  
+        name = button.value;    
+       
+        window.location.href = "@Url.Action("ReturnSubjects","Admin")"+"?subj="+name;
+    }
+</script>
