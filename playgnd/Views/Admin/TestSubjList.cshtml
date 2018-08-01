@@ -1,16 +1,25 @@
-﻿@model List<string>
+﻿@using playgnd.Models.Admin.Test;
+@model List<CourseModel>
 @{
     ViewData["Title"] = "TestSubjList";
 }
-
 <h2>Выбор курса</h2>
  <table class="subjects">
-                @foreach (string d in Model)
+                @foreach (CourseModel m in Model)
                 {
                 <tr class="subj">
                     <td>
+                        <div class="subj-id">
+                           <input type="button" value="@m.Id" onclick="getSubj(this)"/>
+                        </div>
+                    <td>
                         <div class="subj-name">
-                           <input type="button" value="@d" onclick="getSubj(this)"/>
+                           <input type="button" value="@m.Name" onclick="getSubj(this)"/>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="subj-count">
+                           <input type="button" value="@m.Count" onclick="getSubj(this)"/>
                         </div>
                     </td>
                 </tr>
@@ -18,8 +27,7 @@
   </table>
 <script>
     function getSubj(button) {  
-        name = button.value;    
-       
+        name = button.value;           
         window.location.href = "@Url.Action("ReturnSubjects","Admin")"+"?subj="+name;
     }
 </script>

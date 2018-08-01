@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using playgnd.Models.DataBase;
 using playgnd.Models.DataBase.TestDB;
 using playgnd.Models.Test;
+using playgnd.Models.Admin.Test;
 
 namespace playgnd.Controllers
 {
@@ -30,6 +31,8 @@ namespace playgnd.Controllers
         {
            return View("TestControl",subj);
         }
+
+        //returns page with list of courses
         [Route("admin/test/list")]
         public async Task<IActionResult> ReturnSubjList()
         {
@@ -37,8 +40,8 @@ namespace playgnd.Controllers
             {
                 await db.Connection.OpenAsync();
                 var query = new TestDBWorker(db);
-                List<string> subj = await query.GetSubjects();
-                return View("TestSubjList",subj);
+                List<CourseModel> subj = await query.GetSubjects();
+                return View("TestSubjList", subj);
             }
         }
     }

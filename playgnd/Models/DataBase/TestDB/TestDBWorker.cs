@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using playgnd.Models.Admin.Test;
 
 namespace playgnd.Models.DataBase.TestDB
 {
@@ -31,17 +32,22 @@ namespace playgnd.Models.DataBase.TestDB
         }
 
         //return list of subjects
-        public async Task<List<string>> GetSubjects()
+        public async Task<List<CourseModel>> GetSubjects()
         {
-            List<string> ret = new List<string>();
-            var cmd = Db.Connection.CreateCommand();
-            cmd.CommandText = @"SELECT subject FROM testDB.testsTable;";
+            List<CourseModel> ret = new List<CourseModel>();
+             var cmd = Db.Connection.CreateCommand();
+            cmd.CommandText = @"SELECT * FROM testDB.coursesTable;";
             using (var reader = await cmd.ExecuteReaderAsync())
             {
                 while (await reader.ReadAsync())
                 {
-                    string sub = await reader.GetFieldValueAsync<string>(0);
-                    ret.Add(sub);
+                    var subj = new CourseModel()
+                    {
+                        Id = await reader.GetFieldValueAsync<Int32>(0),
+                        Name = await reader.GetFieldValueAsync<String>(1),
+                        Count = await reader.GetFieldValueAsync<Int32>(2),
+                    };                    
+                    ret.Add(subj);
                    
                 }
                 ret = ret.Distinct().ToList();
