@@ -12368,11 +12368,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "R:\\Project\\playground\\playgnd\\playgnd.csproj",
+      "projectUniqueName": "R:\\Project\\playground\\playground\\playgnd\\playgnd.csproj",
       "projectName": "playgnd",
-      "projectPath": "R:\\Project\\playground\\playgnd\\playgnd.csproj",
+      "projectPath": "R:\\Project\\playground\\playground\\playgnd\\playgnd.csproj",
       "packagesPath": "C:\\Users\\max27\\.nuget\\packages\\",
-      "outputPath": "R:\\Project\\playground\\playgnd\\obj\\",
+      "outputPath": "R:\\Project\\playground\\playground\\playgnd\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
