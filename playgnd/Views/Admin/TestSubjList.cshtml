@@ -3,23 +3,20 @@
 @{
     ViewData["Title"] = "TestSubjList";
 }
-<h2>Выбор курса</h2>
+<p align="center"><h2>Выбор курса</h2></p>
+table.subjects {align: center; border: solid 1px black; cellpadding: 2 px; cols:2}
  <table class="subjects">
                 @foreach (CourseModel m in Model)
                 {
-                <tr class="subj">
+                <tr>
                     <td>
-                        <div class="subj-id">
-                           <input type="button" value="@m.Id" onclick="getSubj(this)"/>
-                        </div>
-                    <td>
-                        <div class="subj-name">
-                           <input type="button" value="@m.Name" onclick="getSubj(this)"/>
+                        <div align="center">
+                          <input class="button" type="button" value="@m.Name" onclick="getSubj(this)"/>
                         </div>
                     </td>
                     <td>
-                        <div class="subj-count">
-                           <input type="button" value="@m.Count" onclick="getSubj(this)"/>
+                        <div align="left">
+                           <input type="text" value="В курсі @m.Count тестів"/>
                         </div>
                     </td>
                 </tr>
