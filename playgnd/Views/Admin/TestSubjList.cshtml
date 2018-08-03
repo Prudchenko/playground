@@ -4,7 +4,7 @@
     ViewData["Title"] = "TestSubjList";
 }
 <p align="center"><h2>Выбор курса</h2></p>
-table.subjects {align: center; border: solid 1px black; cellpadding: 2 px; cols:2}
+table.subjects {align: center; border: 1 px black; cellpadding: 2 px; cols: 2}
  <table class="subjects">
                 @foreach (CourseModel m in Model)
                 {
@@ -16,7 +16,11 @@ table.subjects {align: center; border: solid 1px black; cellpadding: 2 px; cols:
                     </td>
                     <td>
                         <div align="left">
-                           <input type="text" value="В курсі @m.Count тестів"/>
+                              @{
+                              if(@m.Count%10==1) В курсі @m.Count тест
+                           else if(@m.Count%10>=2 && @m.Count%10<=4) В курсі @m.Count тестa
+                               else В курсі @m.Count тестів
+                               }
                         </div>
                     </td>
                 </tr>
