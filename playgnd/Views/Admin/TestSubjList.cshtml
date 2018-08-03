@@ -1,30 +1,33 @@
-﻿@using playgnd.Models.Admin.Test;
+@using playgnd.Models.Admin.Test;
 @model List<CourseModel>
-@{
-    ViewData["Title"] = "TestSubjList";
-}
-<p align="center"><h2>Выбор курса</h2></p>
-table.subjects {align: center; border: solid 1px black; cellpadding: 2 px; cols:2}
- <table class="subjects">
-                @foreach (CourseModel m in Model)
-                {
-                <tr>
-                    <td>
-                        <div align="center">
-                          <input class="button" type="button" value="@m.Name" onclick="getSubj(this)"/>
-                        </div>
-                    </td>
-                    <td>
-                        <div align="left">
-                           <input type="text" value="В курсі @m.Count тестів"/>
-                        </div>
-                    </td>
-                </tr>
-                }
-  </table>
-<script>
-    function getSubj(button) {  
-        name = button.value;           
+    @{
+        ViewData["Title"] = "TestSubjList";
+    }
+    <p align="center"><h2>Выбор курса</h2></p>
+    <table align="center" border="1" cellpadding="2">
+        @foreach (CourseModel m in Model)
+        {
+            <tr>
+                <td>
+                    <div align="center">
+                        <input class="button" type="button" value="@m.Name" onclick="getSubj(this)" />
+                    </div>
+                </td>
+                <td>
+                    <div align="left">
+                        @{
+                            if (@m.Count % 10 == 1) { Console.WriteLine("В курсі @m.Count тест"); }
+                            else if (@m.Count % 10 >= 2 && @m.Count % 10 <= 4) { Console.WriteLine("В курсі @m.Count тестa"); }
+                            else { Console.WriteLine("В курсі @m.Count тестів"); }
+                        }
+                    </div>
+                </td>
+            </tr>
+            }
+    </table>
+    <script>
+    function getSubj(button) {
+        name = button.value;
         window.location.href = "@Url.Action("ReturnSubjects","Admin")"+"?subj="+name;
     }
-</script>
+    </script>
