@@ -1,28 +1,48 @@
-﻿@model List<string>
+@using playgnd.Models.Admin.Test;
+<link href="/css/admin/test/add.css" rel="stylesheet" />
+
+@model List<CourseModel>
 @{
     ViewData["Title"] = "TestSubjList";
 }
+<h2><p align="center">Выбор курса</p></h2>
 
-<h2>Выбор курса</h2>
-table.subjects {border:1}
-tr.subj {}
-div.subj-name {}
- <table class="subjects">
-                @foreach (string d in Model)
-                {
-                <tr class="subj">
-                    <td>
-                        <div class="subj-name">
-                           <input type="button" value="@d" onclick="getSubj(this) onmouseover="В курсі @d.count тестів"/>
-                        </div>
-                    </td>
-                </tr>
-                }
-  </table>
+<table align="center" border="1" cellpadding="4" cellspacing="0">
+    @foreach (CourseModel m in Model)
+    {
+        <tr>
+            <td>
+                <div align="left">
+                    id: @m.Id
+                </div>
+            </td>
+            <td>
+                <div align="left">
+                    Курс "@m.Name"
+                </div>
+            </td>
+            <td>
+                <div align="left">
+                    @{
+                        string msg = "В курсе " + @m.Count + " тест";
+                        if (@m.Count % 10 >= 2 && @m.Count % 10 <= 4) { msg += "a"; }
+                        else if (@m.Count % 10 >= 5 && @m.Count % 10 <= 9 || @m.Count % 10 == 0) { msg += "ов"; }
+
+                    }
+                    @msg
+                </div>
+            </td>
+            <td>
+                <div align="center">
+                    <input class="button" type="button" name ="@m.Name" value="Выбрать" onclick="getSubj(this)" />
+                </div>
+            </td>
+        </tr>
+    }
+</table>
 <script>
-    function getSubj(button) {  
-        name = button.value;    
-       
+    function getSubj(button) {
+        name = button.name;
         window.location.href = "@Url.Action("ReturnSubjects","Admin")"+"?subj="+name;
     }
 </script>
